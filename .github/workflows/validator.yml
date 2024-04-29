@@ -18,6 +18,22 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt
+        pip install -r requirements.txt
+    
+    - name: Analysing the code with flake8
+      run: |
+        flake8 --max-line-length=150 --exclude=*__init__.py p_doc
+
     - name: Analysing the code with pylint
       run: |
         pylint p_doc
+
+    - name: Building application
+      run: |
+        python setup.py install
+
+    - name: Unit tests
+      run: |
+        pytest -v tests
+
+    
