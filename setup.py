@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 files = {
     "long_description": "README.md",
@@ -21,7 +21,7 @@ setup(
     description="A Python package for generate documentation from python files.",
     author="Gael",
     author_email="",
-    packages=["p_doc"],
+    packages=find_packages(include=["p_doc", "p_doc.*"]),
     install_requires=param["requirements"].split("\n"),
     long_description=param["long_description"],
     long_description_content_type="text/markdown",
