@@ -1,6 +1,6 @@
 """ Layer class to store the configuration of a layer. """
 
-import copy
+import argparse
 import json
 
 
@@ -30,10 +30,9 @@ class Layer:
         return Layer.load_from_dict(name, config_dict, filename)
 
     @staticmethod
-    def load_from_args_parser(args_parser):
+    def load_from_args_parser(args_parser: argparse.Namespace):
         """Load a layer from an args parser."""
-        parser = copy.deepcopy(args_parser)
-        args = vars(parser.parse_args())
+        args = vars(args_parser)
         # remove none values
         for key in list(args.keys()):
             if args[key] is None:
