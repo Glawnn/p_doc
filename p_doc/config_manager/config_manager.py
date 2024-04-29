@@ -56,3 +56,8 @@ class ConfigManager:
             if layer.path:
                 with open(layer.path, "w", encoding="utf-8") as file:
                     json.dump(layer.get_config(), file, indent=4)
+
+    def save_to_json_file(self, path):
+        """Save the configuration to a json file."""
+        with open(path, "w", encoding="utf-8") as file:
+            json.dump(self.global_config, file, indent=4)
