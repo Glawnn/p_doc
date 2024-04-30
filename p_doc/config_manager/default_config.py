@@ -9,6 +9,9 @@ class DefaultConfig(Enum):
     OUTPUT_PATH = "docs/"
     OUTPUT_FILENAME = "output"
     OUTPUT_FORMAT = "md"
+    IGNORE_FILES = []
+    IGNORE_FOLDER = ["__pycache__"]
+    INPUT_PATH = "."
 
     @staticmethod
     def as_dict():

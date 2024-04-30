@@ -3,7 +3,7 @@
 import logging
 
 
-def setup_logger(log_file=None, log_level=logging.INFO):
+def setup_logger(log_file: str = None, log_level=logging.INFO):
     """Setup the logger."""
     logging.basicConfig(
         level=log_level, format="%(asctime)s - %(levelname)s - %(message)s"
