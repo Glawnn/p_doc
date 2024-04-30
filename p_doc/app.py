@@ -6,6 +6,7 @@ import os
 
 from p_doc.config_manager import ConfigManager, Layer
 from p_doc.config_manager.default_config import DefaultConfig
+from p_doc.doc_scrapper.doc_scrapper import DocScrapper
 from .utils import setup_logger
 
 
@@ -31,6 +32,8 @@ class AppManager:
         self.args = self.parser.parse_args()
 
         self.config_manager = ConfigManager()
+        self.global_config = None
+        self.doc_scrapper = None
 
     def run(self):
         """Run the application."""
@@ -65,10 +68,19 @@ class AppManager:
 
         self.config_manager.add_layer(Layer.load_from_args_parser(self.args))
         self.config_manager.compute_config()
-        self.logger.debug("Configuration: %s", self.config_manager.get_config())
+        self.global_config = self.config_manager.get_config()
+        self.logger.debug("Configuration: %s", self.global_config)
 
     def _scrap(self):
         self.logger.debug("Scraping data...")
+        self.doc_scrapper = DocScrapper(
+            path=self.global_config.get("input_path"),
+            ignore_dirs=self.global_config.get("ignore_folder"),
+        )
+        self.doc_scrapper.execute()
+
+        self.logger.debug("Main entity: %s", self.doc_scrapper.main_entity.to_dict())
+        self.logger.debug("Tree:\n%s", self.doc_scrapper.main_entity.tree())
 
     def _process(self):
         self.logger.debug("Processing data...")
